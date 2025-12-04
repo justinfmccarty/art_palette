@@ -561,3 +561,222 @@ footer {
     letter-spacing: 0.1em;
     flex-shrink: 0;
 }
+
+/* Mobile Portrait Responsive */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+    .container {
+        padding: 10px;
+        overflow-y: auto;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    header {
+        height: auto;
+        min-height: auto;
+        padding: 15px 0;
+    }
+
+    .header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .theme-toggle {
+        align-self: flex-end;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .search-container {
+        max-width: 100%;
+    }
+
+    #artist-search {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+    }
+
+    .gallery {
+        height: auto;
+        max-height: 60vh;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+
+    .gallery.single-image {
+        flex-direction: column;
+        height: auto;
+        max-height: none;
+        overflow: visible;
+    }
+
+    .selected-image-container {
+        width: 100%;
+        height: auto;
+    }
+
+    .image-wrapper {
+        width: 100%;
+        height: auto;
+    }
+
+    .selected-image {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        max-height: 50vh;
+    }
+
+    .palette-panel {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        margin-top: 15px;
+    }
+
+    .palette-panel.hidden {
+        display: none;
+    }
+
+    .palette-colors {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .color-swatch {
+        flex: 1 1 calc(50% - 5px);
+        min-width: 0;
+    }
+
+    .swatch-info {
+        overflow: hidden;
+    }
+
+    .swatch-hex {
+        font-size: 0.75rem;
+    }
+
+    .palette-actions {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .export-btn,
+    .back-btn {
+        flex: 1;
+        padding: 10px;
+        font-size: 0.7rem;
+    }
+
+    footer {
+        height: auto;
+        padding: 15px 0;
+    }
+
+    .color-selector {
+        width: 24px;
+        height: 24px;
+    }
+
+    .selector-number {
+        font-size: 0.6rem;
+    }
+
+    .placeholder-text {
+        padding: 50px 20px;
+    }
+
+    .gallery-item {
+        height: 100px;
+    }
+}
+
+/* Small mobile screens */
+@media screen and (max-width: 480px) and (orientation: portrait) {
+    h1 {
+        font-size: 1rem;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-item {
+        height: 80px;
+    }
+
+    .color-swatch {
+        flex: 1 1 100%;
+    }
+
+    .palette-colors {
+        flex-direction: column;
+    }
+
+    .palette-header label {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    #color-count {
+        width: 100%;
+    }
+}
+
+/* Landscape mobile - keep side by side but smaller */
+@media screen and (max-width: 900px) and (orientation: landscape) {
+    .container {
+        padding: 10px;
+    }
+
+    header {
+        height: 25vh;
+        min-height: 60px;
+    }
+
+    h1 {
+        font-size: 1rem;
+    }
+
+    .content-wrapper {
+        height: 65vh;
+    }
+
+    .palette-panel {
+        width: 180px;
+        padding: 10px;
+    }
+
+    .palette-header h3 {
+        font-size: 0.75rem;
+    }
+
+    .swatch-preview {
+        width: 28px;
+        height: 28px;
+    }
+
+    .color-selector {
+        width: 22px;
+        height: 22px;
+    }
+
+    .selector-number {
+        font-size: 0.6rem;
+    }
+
+    footer {
+        height: 10vh;
+    }
+}
