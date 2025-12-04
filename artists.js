@@ -1,103 +1,128 @@
-// 20 Artists with their Wikipedia page titles for API queries
+// Artists with search terms for Art Institute of Chicago API
 const ARTISTS = [
     {
         name: "Claude Monet",
-        wikipedia: "Claude_Monet",
+        searchTerm: "Claude Monet",
         category: "Impressionism"
     },
     {
         name: "David Hockney",
-        wikipedia: "David_Hockney",
+        searchTerm: "David Hockney",
         category: "Pop Art"
     },
     {
         name: "Annie Leibovitz",
-        wikipedia: "Annie_Leibovitz",
+        searchTerm: "Annie Leibovitz",
         category: "Photography"
     },
     {
         name: "Vincent van Gogh",
-        wikipedia: "Vincent_van_Gogh",
+        searchTerm: "Vincent van Gogh",
         category: "Post-Impressionism"
     },
     {
         name: "Frida Kahlo",
-        wikipedia: "Frida_Kahlo",
+        searchTerm: "Frida Kahlo",
         category: "Surrealism"
     },
     {
         name: "Pablo Picasso",
-        wikipedia: "Pablo_Picasso",
+        searchTerm: "Pablo Picasso",
         category: "Cubism"
     },
     {
         name: "Georgia O'Keeffe",
-        wikipedia: "Georgia_O%27Keeffe",
+        searchTerm: "Georgia O'Keeffe",
         category: "Modernism"
     },
     {
         name: "Andy Warhol",
-        wikipedia: "Andy_Warhol",
+        searchTerm: "Andy Warhol",
         category: "Pop Art"
     },
     {
         name: "Yayoi Kusama",
-        wikipedia: "Yayoi_Kusama",
+        searchTerm: "Yayoi Kusama",
         category: "Contemporary"
     },
     {
         name: "Jean-Michel Basquiat",
-        wikipedia: "Jean-Michel_Basquiat",
+        searchTerm: "Jean-Michel Basquiat",
         category: "Neo-Expressionism"
     },
     {
         name: "Gustav Klimt",
-        wikipedia: "Gustav_Klimt",
+        searchTerm: "Gustav Klimt",
         category: "Art Nouveau"
     },
     {
         name: "Wassily Kandinsky",
-        wikipedia: "Wassily_Kandinsky",
+        searchTerm: "Wassily Kandinsky",
         category: "Abstract"
     },
     {
         name: "Henri Matisse",
-        wikipedia: "Henri_Matisse",
+        searchTerm: "Henri Matisse",
         category: "Fauvism"
     },
     {
         name: "Salvador Dalí",
-        wikipedia: "Salvador_Dal%C3%AD",
+        searchTerm: "Salvador Dalí",
         category: "Surrealism"
     },
     {
         name: "Édouard Manet",
-        wikipedia: "%C3%89douard_Manet",
+        searchTerm: "Édouard Manet",
         category: "Impressionism"
     },
     {
         name: "Johannes Vermeer",
-        wikipedia: "Johannes_Vermeer",
+        searchTerm: "Johannes Vermeer",
         category: "Baroque"
     },
     {
         name: "Rembrandt",
-        wikipedia: "Rembrandt",
+        searchTerm: "Rembrandt",
         category: "Baroque"
     },
     {
         name: "Jackson Pollock",
-        wikipedia: "Jackson_Pollock",
+        searchTerm: "Jackson Pollock",
         category: "Abstract Expressionism"
     },
     {
         name: "Banksy",
-        wikipedia: "Banksy",
+        searchTerm: "Banksy",
         category: "Street Art"
     },
     {
         name: "Katsushika Hokusai",
-        wikipedia: "Hokusai",
+        searchTerm: "Hokusai",
         category: "Ukiyo-e"
+    },
+    {
+        name: "Mary Cassatt",
+        searchTerm: "Mary Cassatt",
+        category: "Impressionism"
+    },
+    {
+        name: "Edgar Degas",
+        searchTerm: "Edgar Degas",
+        category: "Impressionism"
+    },
+    {
+        name: "Paul Cézanne",
+        searchTerm: "Paul Cézanne",
+        category: "Post-Impressionism"
+    },
+    {
+        name: "Pierre-Auguste Renoir",
+        searchTerm: "Pierre-Auguste Renoir",
+        category: "Impressionism"
+    },
+    {
+        name: "Marc Chagall",
+        searchTerm: "Marc Chagall",
+        category: "Modernism"
     }
 ];
