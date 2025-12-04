@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Palette Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-row">
+                <h1>Art Palette Explorer</h1>
+                <div class="theme-toggle" id="theme-toggle">
+                    <span>Dark</span>
+                    <div class="theme-toggle-switch"></div>
+                    <span>Light</span>
+                </div>
+            </div>
+            <div class="search-container">
+                <input type="text" id="artist-search" placeholder="Search for an artist (e.g., Monet, Hockney, Leibovitz)..." autocomplete="off">
+                <div id="suggestions" class="suggestions"></div>
+            </div>
+        </header>
+
+        <main>
+            <div class="content-wrapper">
+                <div id="gallery" class="gallery">
+                    <p class="placeholder-text">Search for an artist to see their works</p>
+                </div>
+                
+                <div id="palette-panel" class="palette-panel hidden">
+                    <div class="palette-header">
+                        <h3>Color Palette</h3>
+                        <label>
+                            Colors: 
+                            <input type="number" id="color-count" min="2" max="12" value="4">
+                        </label>
+                    </div>
+                    <div id="palette-colors" class="palette-colors"></div>
+                    <div class="palette-actions">
+                        <button id="export-btn" class="export-btn">Export List</button>
+                        <button id="back-btn" class="back-btn">← Back to Gallery</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            Art Palette Explorer
+        </footer>
+    </div>
+
+    <canvas id="hidden-canvas" style="display: none;"></canvas>
+    <script src="artists.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
