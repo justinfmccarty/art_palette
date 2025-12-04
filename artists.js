@@ -124,5 +124,11 @@ const ARTISTS = [
         name: "Marc Chagall",
         searchTerm: "Marc Chagall",
         category: "Modernism"
+    },
+    {
+        name: "Tracy McCarty",
+        searchTerm: "tracy-mccarty",
+        category: "Contemporary",
+        source: "local"
     }
 ];

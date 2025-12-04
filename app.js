@@ -95,7 +95,7 @@ function handleSearch() {
     }
 }
 
-// Select artist and fetch their images from Art Institute of Chicago
+// Select artist and fetch their images
 async function selectArtist(searchTerm) {
     currentArtist = ARTISTS.find(a => a.searchTerm === searchTerm);
     searchInput.value = currentArtist.name;
@@ -105,7 +105,12 @@ async function selectArtist(searchTerm) {
     palettePanel.classList.add('hidden');
 
     try {
-        const images = await fetchArtInstituteImages(searchTerm);
+        let images;
+        if (currentArtist.source === 'local') {
+            images = await fetchLocalImages(searchTerm);
+        } else {
+            images = await fetchArtInstituteImages(searchTerm);
+        }
         currentImages = images;
         displayGallery(images);
     } catch (error) {
@@ -134,6 +139,32 @@ async function fetchArtInstituteImages(searchTerm) {
     }));
 
     return images;
+}
+
+// Fetch images from local directory
+async function fetchLocalImages(folderName) {
+    // Fetch the directory listing from the local folder
+    const localPath = `local/${folderName}/`;
+    
+    try {
+        // Fetch the index file that lists all images in the local directory
+        const response = await fetch(`${localPath}index.json`);
+        const fileList = await response.json();
+        
+        // Map to our image format
+        const images = fileList.map((filename, index) => ({
+            url: `${localPath}${filename}`,
+            fullUrl: `${localPath}${filename}`,
+            title: `Artwork ${index + 1}`,
+            artist: currentArtist.name,
+            date: ''
+        }));
+        
+        return images;
+    } catch (error) {
+        console.error('Error loading local images:', error);
+        return [];
+    }
 }
 
 // Display gallery of images
