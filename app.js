@@ -79,7 +79,7 @@ function handleSearch() {
 
     if (matches.length > 0) {
         suggestionsDiv.innerHTML = matches.map(artist => `
-            <div class="suggestion-item" data-wikipedia="${artist.wikipedia}">
+            <div class="suggestion-item" data-searchterm="${artist.searchTerm}">
                 <strong>${artist.name}</strong>
                 <small style="color: #888; margin-left: 10px;">${artist.category}</small>
             </div>
@@ -88,16 +88,16 @@ function handleSearch() {
 
         // Add click handlers
         suggestionsDiv.querySelectorAll('.suggestion-item').forEach(item => {
-            item.addEventListener('click', () => selectArtist(item.dataset.wikipedia));
+            item.addEventListener('click', () => selectArtist(item.dataset.searchterm));
         });
     } else {
         suggestionsDiv.classList.remove('active');
     }
 }
 
-// Select artist and fetch their images
-async function selectArtist(wikipediaTitle) {
-    currentArtist = ARTISTS.find(a => a.wikipedia === wikipediaTitle);
+// Select artist and fetch their images from Art Institute of Chicago
+async function selectArtist(searchTerm) {
+    currentArtist = ARTISTS.find(a => a.searchTerm === searchTerm);
     searchInput.value = currentArtist.name;
     suggestionsDiv.classList.remove('active');
     
@@ -105,7 +105,7 @@ async function selectArtist(wikipediaTitle) {
     palettePanel.classList.add('hidden');
 
     try {
-        const images = await fetchWikipediaImages(wikipediaTitle);
+        const images = await fetchArtInstituteImages(searchTerm);
         currentImages = images;
         displayGallery(images);
     } catch (error) {
@@ -114,69 +114,26 @@ async function selectArtist(wikipediaTitle) {
     }
 }
 
-// Fetch images from Wikipedia API
-async function fetchWikipediaImages(pageTitle) {
-    // First, get images from the main article
-    const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=${pageTitle}&prop=images&imlimit=50&format=json&origin=*`;
+// Fetch images from Art Institute of Chicago API
+async function fetchArtInstituteImages(searchTerm) {
+    const apiUrl = `https://api.artic.edu/api/v1/artworks/search?q=${encodeURIComponent(searchTerm)}&limit=40&fields=id,title,image_id,artist_title,date_display`;
     
     const response = await fetch(apiUrl);
     const data = await response.json();
     
-    const pages = data.query.pages;
-    const pageId = Object.keys(pages)[0];
-    const images = pages[pageId].images || [];
+    // Filter for artworks that have images
+    const artworksWithImages = data.data.filter(artwork => artwork.image_id);
     
-    // Filter for actual artwork images (exclude icons, logos, etc.)
-    const artworkImages = images.filter(img => {
-        const title = img.title.toLowerCase();
-        return (title.endsWith('.jpg') || title.endsWith('.jpeg') || title.endsWith('.png')) &&
-               !title.includes('icon') &&
-               !title.includes('logo') &&
-               !title.includes('flag') &&
-               !title.includes('symbol') &&
-               !title.includes('signature') &&
-               !title.includes('commons-logo');
-    });
+    // Map to our image format
+    const images = artworksWithImages.map(artwork => ({
+        url: `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`,
+        fullUrl: `https://www.artic.edu/iiif/2/${artwork.image_id}/full/full/0/default.jpg`,
+        title: artwork.title || 'Untitled',
+        artist: artwork.artist_title || '',
+        date: artwork.date_display || ''
+    }));
 
-    // Get image URLs
-    const imageUrls = await Promise.all(
-        artworkImages.slice(0, 20).map(img => getImageUrl(img.title))
-    );
-
-    return imageUrls.filter(img => img !== null);
-}
-
-// Get actual image URL from Wikipedia
-async function getImageUrl(imageTitle) {
-    const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(imageTitle)}&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=800&format=json&origin=*`;
-    
-    try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        
-        const pages = data.query.pages;
-        const pageId = Object.keys(pages)[0];
-        
-        if (pages[pageId].imageinfo) {
-            const info = pages[pageId].imageinfo[0];
-            const metadata = info.extmetadata || {};
-            
-            // Get title and strip any HTML tags
-            let title = metadata.ObjectName?.value || imageTitle.replace('File:', '').replace(/_/g, ' ').replace(/\.[^/.]+$/, '');
-            title = stripHtml(title);
-            
-            return {
-                url: info.thumburl || info.url,
-                fullUrl: info.url,
-                title: title,
-                artist: stripHtml(metadata.Artist?.value || '')
-            };
-        }
-    } catch (error) {
-        console.error('Error getting image URL:', error);
-    }
-    
-    return null;
+    return images;
 }
 
 // Display gallery of images
